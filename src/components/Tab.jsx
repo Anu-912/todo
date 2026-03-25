@@ -1,4 +1,4 @@
-"usw client"
+"use client"
 import React from 'react'
 export const Tab = ({filter,setFilter}) => {
 const tabButtons = ["All", "Active", "Completed"]
