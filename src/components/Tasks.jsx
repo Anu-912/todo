@@ -3,7 +3,7 @@ import React from "react";
 
 export const Taskcontainer = ({ tasks, handleDelete, handleCheck }) => {
   if (tasks.length === 0)
-    return <p className="text-gray-200 text-[20px] "> Add one above! </p>;
+    return (<p className="text-gray-200 text-[20px] "> Add one above! </p>);
   return (
     <div className="flex flex-col w-full gap-2">
       {tasks.map((task) => (
@@ -15,16 +15,16 @@ export const Taskcontainer = ({ tasks, handleDelete, handleCheck }) => {
             <input
               type="checkbox"
               checked={task.Iscompleted}
-              className="size-8"
-              onClick={() => handleCheck(task.id)}
+              className="size-5"
+            onChange={() => handleCheck(task.id)}
             ></input>
             <p
               className="text-xl"
               style={{
-                textDecoration: Iscompleted ? "line-throgh" : "",
+                textDecoration: task.Iscompleted ? "line-throgh" : "",
               }}
             >
-              {taskName}
+              {task.InputName}
             </p>
             <button
               onClick={() => handleDelete(task.id)}
