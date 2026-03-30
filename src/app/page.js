@@ -41,7 +41,8 @@ export default function Home() {
 
     return true;
   });
-
+const completedCount = tasks.filter((task) => task.Iscompleted).length;
+  const allCount = tasks.length;
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-200">
       <div className="w-[377px] h-[290px] bg-white rounded-[12px] p-6 flex flex-col gap-4">
