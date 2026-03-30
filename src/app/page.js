@@ -14,35 +14,35 @@ export default function Home() {
       alert("write task name");
       return;
     }
-  };
   settasks([
     { InputName: InputValue, Iscompleted: false, id: Date.now() },
     ...tasks,
   ]);
   setInputValue("");
-
-  const handleCheck = (taskId) => {
-    const updatedTasks = tasks.map((task) => {
-      if (task.id === taskId) {
-        return { ...task, Iscompleted: !task.Iscompleted };
-      } else {
-        return task;
-      }
-    });
-    settasks(updatedTasks);
   };
+  const handleCheck = (taskId) => {
+     settasks(
+      tasks.map((task) => 
+        task.id === taskId
+    ? { ...task, Iscompleted: !task.IsCompleted} : task)
+);
+  
+  };
+  
   const handleDelete = (taskId) => {
     settasks(tasks.filter((task) => task.id !== taskId));
   };
 
   const filteredTasks = tasks.filter((task) => {
-    if (currentFilter === "Active") return !task.isCompleted;
-    if (currentFilter === "Completed") return task.isCompleted;
-
+    if (filter === "active") return !task.IsCompleted === false;
+    if (filter === "completed") return task.IsCompleted === true;
     return true;
   });
-const completedCount = tasks.filter((task) => task.Iscompleted).length;
+const completedCount = tasks.filter((task) => task.Iscompleted === true).length;
   const allCount = tasks.length;
+  const deleteAllDone = () => {
+    settasks(tasks.filter((task)=> !task.Iscompleted));
+  }
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-200">
       <div className="w-[377px] h-[290px] bg-white rounded-[12px] p-6 flex flex-col gap-4">
@@ -60,21 +60,8 @@ const completedCount = tasks.filter((task) => task.Iscompleted).length;
         </div>
 
         <Tab filter={filter} setFilter={setFilter} />
-        {tasks.map((task, index) => {
-          return (
-            <div key={index}>
-              <input
-                type="checkbox"
-                checked={task.Iscompleted}
-                onChange={handleClick}
-                className="h-[20px] w-[20px] bg-white rounded-[5px]"
-                handleCheck={() => handleCheck(task.id)}
-              />
-              <p>{task.InputName}</p>
-            </div>
-          );
-        })}
-        <Taskcounter completedCount={completedCount} allCount={allCount} />
+        
+        <Taskcounter completedCount={completedCount} allCount={allCount}  deleteAllDone={deleteAllDone}/>
         <Taskcontainer
           tasks={filteredTasks}
           handleCheck={handleCheck}
