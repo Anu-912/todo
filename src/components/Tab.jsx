@@ -1,14 +1,14 @@
 "use client";
 import React from "react";
 export const Tab = ({ filter, setFilter }) => {
-  const tabButtons = ["All", "Active", "Completed"];
+  const tabButtons = ["all", "active", "completed"];
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2 px-3">
       {tabButtons.map((tab) => (
         <button
           key={tab}
-          onClick={() => setFilter(tab.toLowerCase())}
-          className={`h-[32px] rounded-[2px] text-[14px] bg-gray-200 text-gray-700 font-medium transition-colors 
+          onClick={() => setFilter(tab)}
+          className={`h-[32px] rounded-[2px] text-[14px] font-medium transition-colors 
 ${
   filter === tab.toLowerCase()
     ? "bg-blue-600 text-white"
