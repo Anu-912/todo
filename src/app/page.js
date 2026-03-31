@@ -15,7 +15,7 @@ export default function Home() {
       return;
     }
   settasks([
-    { InputName: InputValue, Iscompleted: false, id: Date.now() },
+    { InputName: InputValue, IsCompleted: false, id: crypto.randomUUID() },
     ...tasks,
   ]);
   setInputValue("");
@@ -24,7 +24,7 @@ export default function Home() {
      settasks(
       tasks.map((task) => 
         task.id === taskId
-    ? { ...task, Iscompleted: !task.IsCompleted} : task)
+    ? { ...task, IsCompleted: !task.IsCompleted} : task)
 );
   
   };
@@ -34,18 +34,20 @@ export default function Home() {
   };
 
   const filteredTasks = tasks.filter((task) => {
-    if (filter === "active") return !task.IsCompleted === false;
-    if (filter === "completed") return task.IsCompleted === true;
+    if (filter === "active") return !task.IsCompleted;
+    if (filter === "completed") return task.IsCompleted;
     return true;
   });
-const completedCount = tasks.filter((task) => task.Iscompleted === true).length;
+const completedCount = tasks.filter((task) => task.IsCompleted).length;
   const allCount = tasks.length;
-  const deleteAllDone = () => {
-    settasks(tasks.filter((task)=> !task.Iscompleted));
-  }
+  const deleteAllDone = () => { 
+  
+    
+    settasks(tasks.filter((task)=> !task.IsCompleted));
+  };
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-200">
-      <div className="w-[377px] h-[290px] bg-white rounded-[12px] p-6 flex flex-col gap-4">
+      <div className="w-[377px]   bg-white rounded-[12px] p-6 flex flex-col gap-4">
         <p className="text-[20px] font-semibold text-black text-center">
           To-Do list
         </p>
@@ -61,13 +63,13 @@ const completedCount = tasks.filter((task) => task.Iscompleted === true).length;
 
         <Tab filter={filter} setFilter={setFilter} />
         
-        <Taskcounter completedCount={completedCount} allCount={allCount}  deleteAllDone={deleteAllDone}/>
         <Taskcontainer
           tasks={filteredTasks}
           handleCheck={handleCheck}
-          handleDelte={handleDelete}
-          deleteAllDone={deleteAllDone}
+          handleDelete={handleDelete}
+           deleteAllDone={deleteAllDone}
         />
+         <Taskcounter completedCount={completedCount} allCount={allCount}  deleteAllDone={deleteAllDone}/>
         <p className="text-center text-gray-500 text[13px]">
           Powered by{" "}
           <a href="#" className="text-blue-500">
