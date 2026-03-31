@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import React from "react";
 
 export const Taskcounter = ({ completedCount, allCount, deleteAllDone }) => {
@@ -7,9 +7,17 @@ export const Taskcounter = ({ completedCount, allCount, deleteAllDone }) => {
       <p>
         {completedCount} of {allCount} tasks completed
       </p>
-      <p onClick={deleteAllDone} className="text-red-600  font-semibold px-2">
+      <button type="button" 
+      onClick={() => {
+        if (window.confirm("Are you sure you want to clear all completed tasks? ")) {
+          deleteAllDone();
+        }
+      }}
+      
+      className="text-red-600  font-semibold px-2 cursor-pointer">
         Clear completed
-      </p>
+      </button>
     </div>
   );
 };
+
